@@ -1,10 +1,23 @@
-obj-m := hello_proc.o
+obj-m := timer_tasklet.o hello_proc.o
+
+DEBUG = n
+SAVE_TEMPS = n
 
 KERNELDIR := /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 
-EXTRA_CFLAGS += "-save-temps=obj"
-#EXTRA_CFLAGS += "-g"
+ifeq ($(SAVE_TEMPS),y)
+  ST_FLAGS = -save-temps=obj
+endif
+
+ifeq ($(DEBUG),y)
+  DEBFLAGS = -O -g -DDEBUG_LOG
+else
+  DEBFLAGS = -O2
+endif
+
+EXTRA_CFLAGS += $(ST_FLAGS)
+EXTRA_CFLAGS += $(DEBFLAGS)
 
 default:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules

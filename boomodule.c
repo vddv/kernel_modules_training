@@ -1,13 +1,13 @@
 #include <linux/init.h>
 #include <linux/module.h>
 
-MODULE_LICENSE("GPL");
+#include "boomodule.h"
+
+MODULE_LICENSE("Dual BSD/GPL");
 
 static void null_pointer(void)
 {
-    int *boo = NULL;
-
-    *boo = 0;
+    *(int *)NULL = 0;
 }
 
 static void division_by_zero(void)
@@ -19,9 +19,12 @@ static void division_by_zero(void)
 
 static int boo_init(void)
 {
-    division_by_zero();
-    // null_pointer();
+    DLOG("Division by zero!");
+    division_by_zero();    
 
+    DLOG("Null-pointer dereference!");
+    null_pointer();
+    	
     return 0;
 }
 
