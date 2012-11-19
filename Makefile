@@ -1,4 +1,5 @@
-obj-m := timer_tasklet.o hello_proc.o
+#obj-m := timer_tasklet.o hello_proc.o
+obj-m += tt.o
 
 DEBUG = n
 SAVE_TEMPS = n
