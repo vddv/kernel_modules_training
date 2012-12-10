@@ -1,5 +1,7 @@
 #obj-m := timer_tasklet.o hello_proc.o
-obj-m += tt.o
+#obj-m += tt.o
+#obj-m += irq_m.o
+obj-m += threads.o
 
 DEBUG = n
 SAVE_TEMPS = n
@@ -19,6 +21,7 @@ endif
 
 EXTRA_CFLAGS += $(ST_FLAGS)
 EXTRA_CFLAGS += $(DEBFLAGS)
+EXTRA_CFLAGS += -std=gnu99
 
 default:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules

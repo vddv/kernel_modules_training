@@ -6,9 +6,9 @@
 #include <linux/module.h>
 #include <linux/interrupt.h>
 
-#define IRQ_N	12	// running in virtualbox, 
-					// so using PS/2 irq for this time
-					
+/* running in virtualbox, so using PS/2 irq for this time */
+#define IRQ_N	12
+
 struct irqm_data {
 	int magic_var;
 	struct tasklet_struct tasklet;
@@ -31,7 +31,7 @@ static void on_irq_tasklet(unsigned long arg)
 static irqreturn_t handler(int irq, void *dev_id)
 {
 	struct irqm_data *data = dev_id;
-	
+
 	tasklet_schedule(&data->tasklet);
 
 	return IRQ_HANDLED;

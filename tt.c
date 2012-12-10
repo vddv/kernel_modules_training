@@ -22,6 +22,7 @@ struct tt_data {
 	int wq_delay;
 	struct timer_list timer;
 	struct tasklet_struct tasklet;
+    
 };
 
 struct tt_data ctx = {
@@ -32,7 +33,7 @@ struct tt_data ctx = {
 
 static void workqueue_fn(void *arg) // how to pass arg in workqueue?
 {
-    struct tt_data *data = &ctx;
+	struct tt_data *data = &ctx;
 	unsigned long j = jiffies;
 
 	++data->magic_var;
@@ -109,8 +110,8 @@ static void init_workqueue(void)
 
 	if (!wq)
 		wq = create_singlethread_workqueue("tt_work");
-    if (wq)
-		queue_delayed_work(wq, &tt_work, data->delay);
+	if (wq)
+		queue_delayed_work(wq, &tt_work, data->wq_delay);
 }
 
 static void cancel_workqueue(void)
